@@ -15,7 +15,8 @@ _If this is your first time logging in, an account will be automatically created
 
 ### Step 2: Get Added to a Namespace
 
-* Students: Ask your PI/admin to add you to the proper _namespace_ (ex. braingeneers).
+* Students: Ask your PI/admin to add you to the braingeneers _namespace_. Your username is the email you used to login.
+* PI/admins: You can ask for someone to be added to the braingeneers _namespace_ by going to the #braingeneers-helpdesk channel on the GI slack and asking David Parks.
 * Faculty/Researchers - If you need your own namespace, request admin access via the [NRP Matrix Chat](https://matrix.to/#/#nautilus-users:matrix.org). Admins can create multiple namespaces and invite users to their namespace.&#x20;
 
 ### Step 3: Verify Your Access

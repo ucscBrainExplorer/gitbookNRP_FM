@@ -1,4 +1,5 @@
 ---
+description: Now that you're able to run a single uce-job, let's automate it!
 icon: window
 ---
 
