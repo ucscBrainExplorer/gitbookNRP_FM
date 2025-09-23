@@ -21,7 +21,7 @@ Click on the link depending on your laptop's operating system.&#x20;
 * [Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 * [Windows](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
 
-### 2. Install the kubelogin plugin
+### 2. [Install the kubelogin plugin](https://github.com/int128/kubelogin?tab=readme-ov-file#setup)
 
 You **must** install the kubelogin plugin or your kubeconfig file will not work.
 
