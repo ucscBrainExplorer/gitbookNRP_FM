@@ -17,7 +17,7 @@ kubectl is a command-line tool that controls a Kubernets cluster. Think of it as
 
 Click on the link depending on your laptop's operating system.&#x20;
 
-* [MacOS](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)
+* [MacOS](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) (latest version is fine)
 * [Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 * [Windows](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
 
