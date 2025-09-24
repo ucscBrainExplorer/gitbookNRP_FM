@@ -83,7 +83,7 @@ mkdir -p ~/.aws
 
 ```
 ~/.aws/credentials
-/~.aws/config
+~/.aws/config
 ```
 
 2. Verify the permissions are correct (readable by you only):
