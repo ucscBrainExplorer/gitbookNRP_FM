@@ -103,7 +103,9 @@ args:
 You can also run the following command to list available Kubernetes contexts:
 
 ```
-$ kubectl config get-contextsCURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE*         nautilus   nautilus   oidc
+$ kubectl config get-contexts
+CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
+*         nautilus   nautilus   oidc       braingeneers
 ```
 
 *   Set your default namespace (replace with braingeneers):&#x20;
