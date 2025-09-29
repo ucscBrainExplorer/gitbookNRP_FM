@@ -5,17 +5,21 @@ description: >-
 icon: window
 ---
 
-# Run a Single-UCE Job
+# Run a UCE Job
 
 **Key files in the UCE-Experiments folder:**
 
 * `fixed_pipeline_new.py` – Python script that downloads, preprocesses, and uploads results.
-* `job_template.yaml` – Kubernetes job template with placeholders.
-* `job.yaml` – The actual job file generated from the template.
-* `submit_jobs.py` – Script to automatically generate and submit jobs.
-* `dataset_ids.txt` – List of dataset IDs to process.
+* `job_template.yaml` – a _template_ Kubernetes Job with placeholders used to generate many jobs.
+* `job.yaml` – a _concrete_ Kubernetes Job used to run **one** dataset ID.
+* `submit_jobs.py` – reads `dataset_ids.txt`, renders jobs from `job_template.yaml`, and submits them.
+* `dataset_ids.txt` – newline-separated list of dataset IDs to process.
 
-Steps:
+### Option A: Run a **single** dataset using `job.yaml`
+
+Use this when you want to test or re-run **one** dataset by hand.
+
+**What to edit (two places only)**
 
 1. Find your job.yaml file
 2.  Look at line 4 of the code, where it says "name: uce-job-d6505c89"
@@ -63,12 +67,45 @@ It should say immediately **job.batch/uce-job-\[yourdatasetname] created**&#x20;
 
     <figure><img src="../.gitbook/assets/Screenshot 2025-09-23 at 12.11.57 PM.png" alt=""><figcaption></figcaption></figure>
 
-Note: If the dataset has more than 5,000 cells, it should be splitting it into batches of 15,000 cells per batch to save time. To make sure that all of the batches line up with how many cells the dataset contains, just do simple math:
+### Option B: Run **Many Datasets** (`job_template.yaml` + `submit_jobs.py`)
 
-ex. For cff99df2, there is a total of 29 batches in the bucket (batch0 to batch28). Dataset cff99df2 contains 424528 cells and the chunking size is 15000 cells. To calculate:&#x20;
+Use this for automated bulk processing.
 
-* Do 424528/15000, which equals 28.3018667. Always round up (decimal values mean there is enough for another batch but not exactly 15000). Therefore, there should be 29 batches total.&#x20;
-* Is there 29 batches for this set? Yes!
-* If it stopped at a certain batch #, go to [resume-from-a-specific-batch.md](resume-from-a-specific-batch.md "mention") to learn what to do.\
+1. Create dataset\_ids.txt with one dataset ID per line:
 
+```
+cff99df2-4904-44f7-9173-ff837f95606e
+74014ef8-d2d0-4cbc-8ba2-037f30753ffd
+3b8b5de4-3aa1-4ac6-8890-8d03c8219981
+```
+
+2. Check job\_template.yaml Placeholders\
+   Ensure it uses something like \[SHORT\_ID], \[FULL\_ID]
+
+<figure><img src="../.gitbook/assets/Screenshot 2025-09-29 at 1.12.13 AM.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot 2025-09-29 at 1.12.27 AM (1).png" alt=""><figcaption></figcaption></figure>
+
+_`{{SHORT_ID}}`_ = first 8 chars of dataset ID\
+&#xNAN;_`{{FULL_ID}}`_ = full dataset ID
+
+3. Submit All Jobs
+
+```
+python3.10 submit_jobs.py 
+```
+
+This will:&#x20;
+
+* Reads each ID from the dataset\_id.txt
+* Renders a job from the template
+* Applies it with kubectl
+
+4. Monitor the cluster by running the following commands:
+
+```
+kubectl get jobs -n braingeneers
+kubectl get pods -n braingeneers
+kubectl logs -f <POD_NAME> -n braingeneers
+```
 

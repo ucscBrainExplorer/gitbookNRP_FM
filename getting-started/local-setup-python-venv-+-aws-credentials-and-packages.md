@@ -131,6 +131,9 @@ Confirm everything works by listing the Braingeneers bucket:
 aws s3 ls s3://braingeneersdev/ --profile braingeneers
 ```
 
-If you see a list of files, your AWS profile is ready!
+You can also see:&#x20;
 
-Questions? Contact us! @\_\_\_\_
+* Output files: aws s3 --profile braingeneers ls s3://braingeneersdev/uce-output-files/\
+
+
+If you see a list of files, your AWS profile is ready!

@@ -10,10 +10,10 @@
 
 ## TESTING
 
-* [Run a Single-UCE Job](testing/run-a-single-uce-job.md)
+* [Run a UCE Job](testing/run-a-uce-job.md)
 * [Resume from a Specific Batch](testing/resume-from-a-specific-batch.md)
 * [Monitor and Debug Jobs](testing/monitor-and-debug-jobs.md)
-* [Automate Many Datasets](testing/automate-many-datasets.md)
+* [Building your own Docker Image](testing/building-your-own-docker-image.md)
 
 ## Appendix
 
