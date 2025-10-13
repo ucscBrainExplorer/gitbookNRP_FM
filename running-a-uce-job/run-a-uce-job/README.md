@@ -1,111 +1,117 @@
 ---
 description: >-
-  Now that your environment is ready, let's see if you can process a single
-  dataset through the UCE pipeline!
+  Now that your environment is ready, let's see if you can process datasets
+  through the UCE pipeline!
 icon: window
 ---
 
 # Run a UCE Job
 
-**Key files in the UCE-Experiments folder:**
+We will now check out the code to run a UCE pod from github, edit the dataset\_ids.txt file with the list of datasets to run, and run the code to start a UCE pod on NRP.
 
-* `fixed_pipeline_new.py` – Python script that downloads, preprocesses, and uploads results.
+
+
+1. **Activate the**[ **virtual environment we set up**](../../getting-started/local-setup-python-venv-+-aws-credentials-and-packages.md) **(if it's not already up) and check out the UCE-Experiments code**
+
+```
+cd ~
+gh repo clone ucscBrainExplorer/RunFoundationModelNRP
+```
+
+This will make a copy of the code you need to run a UCE job on your computer
+
+Key files in the UCE-Experiments folder:
+
 * `job_template.yaml` – a _template_ Kubernetes Job with placeholders used to generate many jobs.
-* `job.yaml` – a _concrete_ Kubernetes Job used to run **one** dataset ID.
 * `submit_jobs.py` – reads `dataset_ids.txt`, renders jobs from `job_template.yaml`, and submits them.
-* `dataset_ids.txt` – newline-separated list of dataset IDs to process.
+* `dataset_ids.txt` – newline-separated list of dataset IDs, number of cells, and download\_source to process.
 
-### Option A: Run a **single** dataset using `job.yaml`
 
-Use this when you want to test or re-run **one** dataset by hand.
 
-**What to edit (two places only)**
-
-1. Find your job.yaml file
-2.  Look at line 4 of the code, where it says "name: uce-job-d6505c89"
-
-    <figure><img src="../../.gitbook/assets/Screenshot 2025-09-23 at 11.40.04 AM.png" alt=""><figcaption></figcaption></figure>
-
-**Make the following change:** replace the last 8 characters with the first 8 characters of your dataset ID that you want to run.&#x20;
-
-For example, if I want to run the following dataset: cff99df2-4904-44f7-9173-ff837f95606e, I would replace d6505c89 with **cff99df2 (see image below)**
-
-<figure><img src="../../.gitbook/assets/Screenshot 2025-09-23 at 11.49.25 AM.png" alt=""><figcaption></figcaption></figure>
-
-3.  Now locate line 35, where it says "python3.10 fixed\_pipeline\_new.py..." etc
-
-    <figure><img src="../../.gitbook/assets/Screenshot 2025-09-23 at 11.44.25 AM.png" alt=""><figcaption></figcaption></figure>
-
-**Make the following change:** after it says id="...", replace the Dataset ID with the one you are testing.&#x20;
-
-For example, I would replace d6505c89-c43d-4c28-8c4f-7351a5fd5528, with **cff99df2-4904-44f7-9173-ff837f95606e (see image below).**
-
-<figure><img src="../../.gitbook/assets/Screenshot 2025-09-23 at 11.50.38 AM.png" alt=""><figcaption></figcaption></figure>
-
-<mark style="color:$danger;background-color:$danger;">**WARNING: Please make sure the format does NOT change. The only parts that should be changing are the name (line 4) and the argument (line 35), and it should be a simple copy-paste into the code.**</mark>
-
-4. Now head back to your Terminal prompt. **MAKE SURE YOU ARE IN THE CORRECT BASE and IN THE FOLDER. Note: the UCE-Experiments folder is just under my username .**&#x20;
-5. Submit the job with this command: **kubectl apply -f job.yaml -n braingeneers. (see image below)**
-
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
-
-It should say immediately **job.batch/uce-job-\[yourdatasetname] created**&#x20;
-
-6. Monitor the logs:
-   1. To see all the jobs running, enter: **kubectl get jobs -n braingeneers**
-   2. To see all the pods, enter: **kubectl get pods -n braingeneers**
-      1. From here, look at the pod created under your job (ex. it could be uce-job-cff99df2-aabb)
-      2. To see the logs, enter: **kubectl logs -f \[POD\_NAME] -n braingeneers**
-7. When the job is finished, you should see something like this next to the name of your job.![](<../../.gitbook/assets/Screenshot 2025-09-23 at 12.08.01 PM.png>)
-8. Go to a new Terminal window/tab, and activate the[ virtual environment we set up](../../getting-started/local-setup-python-venv-+-aws-credentials-and-packages.md) (if it's not already up).&#x20;
-9. Run this command in your virtual environment: \
-   &#xNAN;_**aws s3 --profile braingeneers ls s3://braingeneersdev/uce-output-files/**_
-
-<figure><img src="../../.gitbook/assets/Screenshot 2025-09-23 at 12.10.47 PM.png" alt=""><figcaption></figcaption></figure>
-
-10. Locate your dataset ID. Using my example, I found **cff99df2-4904-44f7-9173-ff837f95606e**
-
-    <figure><img src="../../.gitbook/assets/Screenshot 2025-09-23 at 12.11.57 PM.png" alt=""><figcaption></figcaption></figure>
-
-### Option B: Run **Many Datasets** (`job_template.yaml` + `submit_jobs.py`)
-
-Use this for automated bulk processing.
-
-1. Create dataset\_ids.txt with one dataset ID per line:
+2. **Enter the UCE-experiments folder**
 
 ```
-cff99df2-4904-44f7-9173-ff837f95606e
-74014ef8-d2d0-4cbc-8ba2-037f30753ffd
-3b8b5de4-3aa1-4ac6-8890-8d03c8219981
+cd UCE-experiments
 ```
 
-2. Check job\_template.yaml Placeholders\
-   Ensure it uses something like \[SHORT\_ID], \[FULL\_ID]
+This should be just under your username folder
 
-<figure><img src="../../.gitbook/assets/Screenshot 2025-09-29 at 1.12.13 AM.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Screenshot 2025-09-29 at 1.12.27 AM (1).png" alt=""><figcaption></figcaption></figure>
 
-_`{{SHORT_ID}}`_ = first 8 chars of dataset ID\
-&#xNAN;_`{{FULL_ID}}`_ = full dataset ID
+3. **Add your dataset ID to dataset\_ids.txt**
 
-3. Submit All Jobs
+Edit the existing dataset\_ids.txt file. The file will contain a list of dataset ids with corresponding number of cells in the dataset as well as the source of the dataset. There are two data sources: cellxgene and UCSC. cellxgene tells the code to download the dataset from [CELLxGENE](https://cellxgene.cziscience.com/). UCSC tells the code to download the dataset from an S3 bucket run by Jing. If your dataset has more than 100,000 cells add <kbd>\_advanced</kbd> to the <kbd>download\_source</kbd> and reference the [Advanced mode documentation](advanced-mode.md).
+
+All datasets must be on a new line. All data about a dataset must be separated by tabs.&#x20;
+
+Delete any datasets that are already in the file and add your own. Here is an example dataset\_ids.txt file with 5 datasets, 1 of which (<kbd>8e10f1c4-8e98-41e5-b65f-8cd89a887122</kbd>) will not be run because it is commented out with a "#".
 
 ```
-python3.10 submit_jobs.py 
+#dataset_id	dataset_total_cell_count	download_source
+d973ea15-3722-4bc8-a0e8-1d956d26e203	1837	cellxgene
+ucsc-2e934674-0669-4d8a-9faa-9d37078f8bb6	10348	UCSC
+13149914-ea03-4f01-8bf6-b793b667127b	1665937	cellxgene_advanced
+#8e10f1c4-8e98-41e5-b65f-8cd89a887122	2480956	cellxgene_advanced
+ucsc-b165f033-9dec-468a-9248-802fc6902a74	888263	UCSC_advanced
 ```
 
-This will:&#x20;
+{% hint style="info" %}
+Adding a "#" to the beginning of the line in dataset\_ids.txt will skip processing that dataset.
+{% endhint %}
 
-* Reads each ID from the dataset\_id.txt
-* Renders a job from the template
-* Applies it with kubectl
+{% hint style="danger" %}
+If your dataset has more than 100,000 cells please use [Advanced mode](advanced-mode.md)
+{% endhint %}
 
-4. Monitor the cluster by running the following commands:
+4. **Edit submit\_jobs.py**
+
+Open <kbd>submit\_jobs.py</kbd> in your favorite text editor. We recommend [nano](https://www.geeksforgeeks.org/linux-unix/nano-text-editor-in-linux/) if you do not have one. If you use textedit or similar, make sure that the formatting of the file does not change. Do not use Microsoft Word or similar as it will change the formatting of the file.
+
+There are two key values in submit\_jobs.py
+
+* <kbd>start\_cell</kbd> which tells the code where to start the <kbd>chunk\_size</kbd>. This will be <kbd>0</kbd> unless you are restarting a failed job, in which case you will start with the last correctly processed cell number
+* <kbd>max\_pod\_number</kbd> which tells the code how many pods to use for all of the datasets in dataset\_ids.txt. You will need at least one pod for every dataset in the dataset\_ids.txt file. Please see [Advanced mode documentation](advanced-mode.md) for setting the <kbd>max\_pod\_number</kbd> for the advanced mode.
+
+{% hint style="info" %}
+If you do not set max\_pod\_number high enough, not all the datasets will be processed.&#x20;
+{% endhint %}
+
+
+
+5. **Submit the jobs to NRP**
+
+```
+python submit_jobs.py 
+```
+
+It should say immediately <kbd>job.batch/uce-job-\[yourdatasetname] created</kbd>&#x20;
+
+
+
+6. **Monitor the logs:**
 
 ```
 kubectl get jobs -n braingeneers
-kubectl get pods -n braingeneers
+```
+
+This command will list all the pods that are under the braingeneers namespace. Look for pod created under your job (ex. it could be uce-job-cff99df2-aabb)
+
+```
 kubectl logs -f <POD_NAME> -n braingeneers
 ```
 
+This command will show the logs for the pod listed. This will show you if there were any errors in the pipeline.
+
+When the job is finished, you should see something like this next to the name of your job. ![](<../../.gitbook/assets/Screenshot 2025-09-23 at 12.08.01 PM.png>)
+
+
+
+7. **Check that the output files are in the correct place**
+
+Go to a new Terminal window/tab, and activate the[ virtual environment we set up](../../getting-started/local-setup-python-venv-+-aws-credentials-and-packages.md) (if it's not already up). Run this command in your virtual environment
+
+```
+aws s3 --profile braingeneers ls s3://braingeneersdev/uce-output-files/
+```
+
+Locate your dataset ID to verify that the output files are there.
