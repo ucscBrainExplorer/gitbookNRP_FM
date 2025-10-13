@@ -5,19 +5,19 @@ icon: window
 
 # Advanced mode
 
-Advanced mode allows you to run large datasets faster by running UCE in a parallel fashion using multiple pods. It does this by pre-downloading the dataset to a persistent volume on NRP and then mounting the persistent volume to all pods running the UCE. Using a persistent volume allows chunks of the dataset to be run in parallel without downloading the same data multiple times, making the final runtime shorter. Additionally, the dataset only needs to be downloaded once, reducing the time needed for download and avoids download issues that can happen when downloading very large files.&#x20;
+Advanced mode allows you to run large datasets faster by running UCE in a parallel fashion using multiple pods. It does this by pre-downloading the dataset to a persistent volume on NRP and then mounting the persistent volume to all pods running the UCE. Using a persistent volume allows chunks of the dataset to be run in parallel without downloading the same data multiple times, making the final runtime shorter. Additionally, the dataset only needs to be downloaded once, avoiding issues that can happen when downloading very large files.&#x20;
 
 Advanced mode is recommended for datasets larger than 100,000 cells.
 
-## Using Advanced mode
+## Mark a dataset for advanced mode
 
-To mark a dataset for advanced mode, you will append  "\_advanced" to the entry in download\_source in the <kbd>dataset\_ids.txt</kbd> file. This means that the two options to use advanced mode are: "cellxgene\_advanced" and "UCSC\_advanced". Note that <kbd>dataset\_ids.txt</kbd>. can have a mix of advanced and non-advanced datasets in it. To run a single dataset, put only one dataset in <kbd>dataset\_ids.txt</kbd>.&#x20;
+To mark a dataset for advanced mode, you will append  "\_advanced" to the <kbd>download\_source</kbd> for that dataset entry in the <kbd>dataset\_ids.txt</kbd> file. This means that the two options to use advanced mode are: <kbd>cellxgene\_advanced</kbd> and <kbd>UCSC\_advanced</kbd>. Note that <kbd>dataset\_ids.txt</kbd>. can have a mix of advanced and non-advanced datasets in it.&#x20;
 
 {% hint style="info" %}
 You can comment out a dataset by adding "#" to the beginning of the line in <kbd>dataset\_ids.txt</kbd>. Commenting out a dataset will skip it in both the pre-processing and in running the UCE.
 {% endhint %}
 
-## Pre-downloading the dataset to the persistent volume
+## Pre-download the dataset to the persistent volume
 
 To add data to the persistent volume first marking a dataset for advanced mode in the dataset\_ids.txt file as noted above. Then run&#x20;
 
@@ -31,7 +31,7 @@ After you start the download process, run&#x20;
 kubectl get pods -n braingeneers
 ```
 
-To see what pods are running. The pod name will be <kbd>download-dataset-\{{FULL\_ID\_lowercase\}}</kbd>, where <kbd>FULL\_ID\_lowercase</kbd> is the dataset\_id in lowercase. Depending on the size of the file you may need to wait several minutes for the pod status to be marked as <kbd>Complete</kbd>.
+to see what pods are running. The pod name will be <kbd>download-dataset-\{{FULL\_ID\_lowercase\}}</kbd>, where <kbd>FULL\_ID\_lowercase</kbd> is the dataset\_id in lowercase. Depending on the size of the file you may need to wait several minutes for the pod status to be marked as <kbd>Complete</kbd>.
 
 ## Verify that the data was downloaded correctly
 
@@ -49,7 +49,7 @@ This command will start a new pod with no GPUs with the persistent volume mounte
 kubectl get pods -n braingeneers
 ```
 
-To verify that the pod is running (ie. the status will be "Running"). The name of the pod will be <kbd>shared-uce-data-pvc-debugger</kbd>.
+to verify that the pod is running (ie. the status will be "Running"). The name of the pod will be <kbd>shared-uce-data-pvc-debugger</kbd>.
 
 **2. Log onto the pod.**
 
@@ -79,7 +79,7 @@ When run from <kbd>/data/input</kbd>, this command will show the files on the pe
 ls -lh
 ```
 
-To get more human readable sizes.
+to get more human readable sizes.
 
 **5. Exit the pod when you are done.**
 
@@ -100,9 +100,9 @@ This command will delete the debugging pod. While not strictly necessary since N
 ### Other helpful commands
 
 <table><thead><tr><th width="192.07421875">Command</th><th>Use</th></tr></thead><tbody><tr><td><pre><code>df -h
-</code></pre></td><td>When run on a debugger pod, it will show you what persistent volumes are mounted to a pod.</td></tr><tr><td><pre><code>du -h
-</code></pre></td><td>When run from <kbd>/data/input</kbd> (ie. inside the persistent volume) on a debugger pod, it will show you how much space is being used.</td></tr><tr><td><pre><code>kubectl get pvc
-</code></pre></td><td>When run from your home machine, it will show the persistent volumes on NRP.</td></tr></tbody></table>
+</code></pre></td><td>When run on a debugger pod, it will show you what persistent volumes are mounted to the pod.</td></tr><tr><td><pre><code>du -h
+</code></pre></td><td>When run from <kbd>/data/input</kbd> (ie. inside the persistent volume) on a debugger pod, it will show how much space is being used.</td></tr><tr><td><pre><code>kubectl get pvc
+</code></pre></td><td>When run from your home machine, it will show the persistent volumes on NRP. The name of the persistent volume referenced here is <kbd>shared-uce-data-pvc</kbd>.</td></tr></tbody></table>
 
 ## Run the UCE
 
@@ -112,7 +112,7 @@ After verifying the download you can run the UCE following the steps in [Run a U
 
 You will need to delete data after it has been run through the UCE from the persistent volume so that there is space available for other people who are also running data through the UCE. The persistent volume currently has 500Gb.&#x20;
 
-Follow the instructions in [Verify that the data was downloaded correctly](advanced-mode.md#verify-that-the-data-was-downloaded-correctly) except that at Step 4 remove the file you want with:
+Follow the instructions in [Verify that the data was downloaded correctly](advanced-mode.md#verify-that-the-data-was-downloaded-correctly) except that at Step 4 remove the file you want with
 
 ```
 rm <filename>
