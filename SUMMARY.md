@@ -8,12 +8,13 @@
 * [NRP: Cluster Access via Kubectl (Kubeconfig, kubelogin)](getting-started/nrp-cluster-access-via-kubectl-kubeconfig-kubelogin.md)
 * [Local Setup: Python venv + AWS (Credentials & Packages)](getting-started/local-setup-python-venv-+-aws-credentials-and-packages.md)
 
-## TESTING
+## Running a UCE job
 
-* [Run a UCE Job](testing/run-a-uce-job.md)
-* [Resume from a Specific Batch](testing/resume-from-a-specific-batch.md)
-* [Monitor and Debug Jobs](testing/monitor-and-debug-jobs.md)
-* [Building your own Docker Image](testing/building-your-own-docker-image.md)
+* [Run a UCE Job](running-a-uce-job/run-a-uce-job/README.md)
+  * [Advanced mode](running-a-uce-job/run-a-uce-job/advanced-mode.md)
+* [Resume from a Specific Batch](running-a-uce-job/resume-from-a-specific-batch.md)
+* [Monitor and Debug Jobs](running-a-uce-job/monitor-and-debug-jobs.md)
+* [Building your own Docker Image](running-a-uce-job/building-your-own-docker-image.md)
 
 ## Appendix
 
