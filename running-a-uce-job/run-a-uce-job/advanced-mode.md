@@ -67,13 +67,13 @@ cd /data/input
 
 This command will take you to the persistent volume. The persistent volume is mounted at <kbd>/data/input</kbd>.
 
-**4. Look at the files in the directory and verify the size.**
+**4. Look at the files in the directory.**
 
 ```
 ls -l
 ```
 
-When run from <kbd>/data/input</kbd>, this command will show the files on the persistent volume and their sizes. You will check the file size is what it should be here.  You can also run
+When run from <kbd>/data/input</kbd>, this command will show the files on the persistent volume and their sizes. Check the file size is a reasonable file size given the number of cells (i.e. should be at least 100Mb).  You can also run
 
 ```
 ls -lh
