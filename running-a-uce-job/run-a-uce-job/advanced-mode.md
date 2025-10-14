@@ -99,10 +99,11 @@ This command will delete the debugging pod. While not strictly necessary since N
 
 ### Other helpful commands
 
-<table><thead><tr><th width="192.07421875">Command</th><th>Use</th></tr></thead><tbody><tr><td><pre><code>df -h
+<table><thead><tr><th width="239.84765625">Command</th><th>Use</th></tr></thead><tbody><tr><td><pre><code>df -h
 </code></pre></td><td>When run on a debugger pod, it will show you what persistent volumes are mounted to the pod.</td></tr><tr><td><pre><code>du -h
 </code></pre></td><td>When run from <kbd>/data/input</kbd> (ie. inside the persistent volume) on a debugger pod, it will show how much space is being used.</td></tr><tr><td><pre><code>kubectl get pvc
-</code></pre></td><td>When run from your home machine, it will show the persistent volumes on NRP. The name of the persistent volume referenced here is <kbd>shared-uce-data-pvc</kbd>.</td></tr></tbody></table>
+</code></pre></td><td>When run from your home machine, it will show the persistent volumes on NRP. The name of the persistent volume referenced here is <kbd>shared-uce-data-pvc</kbd>.</td></tr><tr><td><pre><code>kubectl get pod -n braingeneers |grep Error
+</code></pre></td><td>When run from your home machine, it will any pods that had an error and did not run. </td></tr></tbody></table>
 
 ## Run the UCE
 
