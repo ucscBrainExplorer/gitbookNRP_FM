@@ -106,7 +106,27 @@ This command will delete the debugging pod. While not strictly necessary since N
 
 ## Run the UCE
 
-After verifying the download you can run the UCE following the steps in [Run a UCE job](advanced-mode.md#run-the-uce).
+{% hint style="info" %}
+This documentation assumes that you have read [Edit submit\_jobs.py in Run a UCE Job.](./)
+{% endhint %}
+
+Edit <kbd>max\_pod\_number in</kbd> in <kbd>submit\_jobs.py</kbd>. To estimate the number of pods needed for an advanced dataset, take the number of cells in the dataset and divide by the chunk\_size in the submit\_jobs.py file (should be 10,000) and round up.&#x20;
+
+{% hint style="warning" %}
+Don't forget the <kbd>max\_pod\_number</kbd> is the number of pods needed for ALL datasets in the <kbd>dataset\_ids.txt</kbd> file, both advanced and not advanced datasets. Add up all the pods you will need for all datasets
+{% endhint %}
+
+{% hint style="info" %}
+Note there is no penalty for setting max\_pod\_number greater than you need so err on setting this high.
+{% endhint %}
+
+Next submit the jobs to NRP
+
+```
+python submit_jobs.py 
+```
+
+It should say immediately <kbd>job.batch/uce-job-\[yourdatasetname] created</kbd>&#x20;
 
 ## Delete data off the persistent volume after running the UCE
 
