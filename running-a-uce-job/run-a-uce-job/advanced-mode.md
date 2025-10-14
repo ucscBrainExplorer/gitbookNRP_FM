@@ -54,7 +54,7 @@ to verify that the pod is running (ie. the status will be "Running"). The name o
 **2. Log onto the pod.**
 
 ```
-kubectl exec -it shared-uce-data-pvc-debugger -- bash
+kubectl exec -it shared-uce-data-pvc-debugger -n braingeneers -- bash
 ```
 
 This command will log onto the debugger pod and give you command line access to the pod. You will know it worked because your command line prompt should now read 'bash'
