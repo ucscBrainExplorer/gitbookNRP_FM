@@ -91,7 +91,7 @@ It should say immediately <kbd>job.batch/uce-job-\[yourdatasetname] created</kbd
 6. **Monitor the logs:**
 
 ```
-kubectl get jobs -n braingeneers
+kubectl get pods -n braingeneers
 ```
 
 This command will list all the pods that are under the braingeneers namespace. Look for pod created under your job (ex. it could be uce-job-cff99df2-aabb)
