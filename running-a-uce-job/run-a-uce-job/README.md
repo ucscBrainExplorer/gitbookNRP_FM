@@ -7,7 +7,7 @@ icon: window
 
 # Run a UCE Job
 
-We will now check out the code to run a UCE pod from github, edit the dataset\_ids.txt file with the list of datasets to run, and run the code to start a UCE pod on NRP.
+This page documents how to check out the code to run a UCE pod from github, edit the dataset\_ids.txt file with the list of datasets to run, and run the code to start UCE pod(s) on NRP.
 
 
 
