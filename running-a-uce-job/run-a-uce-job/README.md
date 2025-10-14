@@ -40,7 +40,9 @@ This should be just under your username folder
 
 3. **Add your dataset ID to dataset\_ids.txt**
 
-Edit the existing dataset\_ids.txt file. The file will contain a list of dataset ids with corresponding number of cells in the dataset as well as the source of the dataset. There are two data sources: cellxgene and UCSC. cellxgene tells the code to download the dataset from [CELLxGENE](https://cellxgene.cziscience.com/). UCSC tells the code to download the dataset from an S3 bucket run by Jing. If your dataset has more than 100,000 cells add <kbd>\_advanced</kbd> to the <kbd>download\_source</kbd> and reference the [Advanced mode documentation](advanced-mode.md).
+Open the existing <kbd>dataset\_ids.txt</kbd> file in your favorite text editor. We recommend [nano](https://www.geeksforgeeks.org/linux-unix/nano-text-editor-in-linux/) if you do not have one. If you use textedit or similar, make sure that the formatting of the file does not change. Do not use Microsoft Word or similar as it will change the formatting of the file.
+
+The <kbd>dataset\_ids.txt</kbd> file will contain a list of dataset ids with corresponding number of cells in the dataset as well as the source of the dataset. There are two data sources: cellxgene and UCSC. cellxgene tells the code to download the dataset from [CELLxGENE](https://cellxgene.cziscience.com/). UCSC tells the code to download the dataset from an S3 bucket run by Jing. If your dataset has more than 100,000 cells add <kbd>\_advanced</kbd> to the <kbd>download\_source</kbd> and reference the [Advanced mode documentation](advanced-mode.md).
 
 All datasets must be on a new line. All data about a dataset must be separated by tabs.&#x20;
 
@@ -65,11 +67,9 @@ If your dataset has more than 100,000 cells please use [Advanced mode](advanced-
 
 4. **Edit submit\_jobs.py**
 
-Open <kbd>submit\_jobs.py</kbd> in your favorite text editor. We recommend [nano](https://www.geeksforgeeks.org/linux-unix/nano-text-editor-in-linux/) if you do not have one. If you use textedit or similar, make sure that the formatting of the file does not change. Do not use Microsoft Word or similar as it will change the formatting of the file.
+Open <kbd>submit\_jobs.py</kbd>. There are two key values in submit\_jobs.py
 
-There are two key values in submit\_jobs.py
-
-* <kbd>start\_cell</kbd> which tells the code where to start the <kbd>chunk\_size</kbd>. This will be <kbd>0</kbd> unless you are restarting a failed job, in which case you will start with the last correctly processed cell number
+* <kbd>start\_cell</kbd> which tells the code where to start the <kbd>chunk\_size</kbd>. This will be <kbd>0</kbd> unless you are restarting a failed job, in which case you will start with the last correctly processed cell number.
 * <kbd>max\_pod\_number</kbd> which tells the code how many pods to use for all of the datasets in dataset\_ids.txt. You will need at least one pod for every dataset in the dataset\_ids.txt file. Please see [Advanced mode documentation](advanced-mode.md) for setting the <kbd>max\_pod\_number</kbd> for the advanced mode.
 
 {% hint style="info" %}
