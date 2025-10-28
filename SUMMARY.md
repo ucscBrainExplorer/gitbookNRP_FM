@@ -12,6 +12,7 @@
 
 * [Run a UCE Job](running-a-uce-job/run-a-uce-job/README.md)
   * [Advanced mode](running-a-uce-job/run-a-uce-job/advanced-mode.md)
+* [Chunk Merge Pipeline](running-a-uce-job/run-a-uce-job/merge-chunks.md)
 * [Resume from a Specific Batch](running-a-uce-job/resume-from-a-specific-batch.md)
 * [Monitor and Debug Jobs](running-a-uce-job/monitor-and-debug-jobs.md)
 * [Building your own Docker Image](running-a-uce-job/building-your-own-docker-image.md)
