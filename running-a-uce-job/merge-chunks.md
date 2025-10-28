@@ -83,7 +83,7 @@ To copy the merged file locally:
 ```bash
 kubectl cp <pod-name>:/data/output/combined_UCE/<dataset-id>_uce_adata.h5ad .
 ```
-
+(Normally, the above can be accomplished by interfacing with the debugger pod. See (this link)[https://ucsc-xena.gitbook.io/running-uce-on-nrp/running-a-uce-job/monitor-and-debug-jobs] for more...)
 ---
 
 ### 6️⃣ Clean up completed jobs (optional)
