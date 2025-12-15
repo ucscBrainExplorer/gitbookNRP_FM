@@ -20,3 +20,4 @@
 ## Appendix
 
 * [Useful Terminology](appendix/useful-terminology.md)
+* [Common Commands](appendix/common-commands.md)

@@ -133,7 +133,6 @@ aws s3 ls s3://braingeneersdev/ --profile braingeneers
 
 You can also see:&#x20;
 
-* Output files: aws s3 --profile braingeneers ls s3://braingeneersdev/uce-output-files/\
-
+* Output files: aws s3 --profile braingeneers ls s3://braingeneersdev/uce-output-files/<br>
 
 If you see a list of files, your AWS profile is ready!

@@ -40,7 +40,7 @@ This should be just under your username folder
 
 3. **Add your dataset ID to dataset\_ids.txt**
 
-Open the existing <kbd>dataset\_ids.txt</kbd> file in your favorite text editor. We recommend [nano](https://www.geeksforgeeks.org/linux-unix/nano-text-editor-in-linux/) if you do not have one. If you use textedit or similar, make sure that the formatting of the file does not change. Do not use Microsoft Word or similar as it will change the formatting of the file.
+Open the existing <kbd>dataset\_ids.txt</kbd> file in your favorite text editor. We recommend [nano](https://www.geeksforgeeks.org/linux-unix/nano-text-editor-in-linux/) if you do not have one. If you use textedit or similar, make sure that the formatting of the file does not change. **Do not use Microsoft Word or similar as it will change the formatting of the file.**
 
 The <kbd>dataset\_ids.txt</kbd> file will contain a list of dataset ids with corresponding number of cells in the dataset as well as the source of the dataset. There are two data sources: cellxgene and UCSC. cellxgene tells the code to download the dataset from [CELLxGENE](https://cellxgene.cziscience.com/). UCSC tells the code to download the dataset from an S3 bucket run by Jing. If your dataset has more than 100,000 cells add <kbd>\_advanced</kbd> to the <kbd>download\_source</kbd> and reference the [Advanced mode documentation](advanced-mode.md).
 
@@ -62,7 +62,7 @@ Adding a "#" to the beginning of the line in dataset\_ids.txt will skip processi
 {% endhint %}
 
 {% hint style="danger" %}
-If your dataset has more than 100,000 cells please use [Advanced mode](advanced-mode.md)
+If your dataset has more than 100,000 cells, please use [Advanced mode](advanced-mode.md)
 {% endhint %}
 
 4. **Edit submit\_jobs.py**

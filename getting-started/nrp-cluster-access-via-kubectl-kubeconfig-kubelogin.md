@@ -126,6 +126,5 @@ If you see “No resources found in your namespace”, don't panic, that's still
 
 ### If you reached the end of this page successfully...CONGRATS! You are officially set up to use the Cluster!
 
-\
-
+<br>
 
