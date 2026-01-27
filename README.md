@@ -2,6 +2,7 @@
 description: Welcome to the UCE Project and Nautilus User Guide
 icon: hand-wave
 ---
+https://ucsc-xena.gitbook.io/running-uce-on-nrp/
 
 # Hello!
 
